@@ -10,6 +10,8 @@ pnpm install
 
 ## Prérequis pnpm
 
+Ce projet utilise pnpm. N’utilisez pas `npm install`. Le script `preinstall` bloque les installations npm/yarn afin d’éviter les conflits de lockfile.
+
 Activez pnpm avec Corepack si nécessaire :
 
 ```bash
@@ -74,6 +76,13 @@ This MVP does not add authentication yet. For local PoC usage, make sure your Su
 
 ```bash
 pnpm dev
+```
+
+Build et prévisualisation :
+
+```bash
+pnpm build
+pnpm preview
 ```
 
 Open the local Vite URL, usually:
