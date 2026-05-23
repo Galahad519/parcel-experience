@@ -1,22 +1,22 @@
 import type { Scenario, ShipmentStatus } from '@/types/tracking';
 
 export const statusLabels: Record<ShipmentStatus, string> = {
-  confirmed: 'Confirmed',
-  prepared: 'Prepared',
-  in_transit: 'In transit',
-  out_for_delivery: 'Out for delivery',
-  delayed: 'Delayed',
-  blocked: 'Blocked',
-  delivered: 'Delivered',
-  failed: 'Failed',
+  confirmed: 'Commande confirmée',
+  prepared: 'Colis en préparation',
+  in_transit: 'En transit',
+  out_for_delivery: 'En cours de livraison',
+  delayed: 'Retardé',
+  blocked: 'Bloqué',
+  delivered: 'Livré',
+  failed: 'Échec de livraison',
 };
 
 export const scenarioLabels: Record<Scenario, string> = {
-  normal: 'Normal',
-  delayed: 'Delayed',
-  blocked: 'Blocked',
-  delivered: 'Delivered',
-  failed: 'Failed',
+  normal: 'Livraison normale',
+  delayed: 'Retard',
+  blocked: 'Colis bloqué',
+  delivered: 'Colis livré',
+  failed: 'Livraison échouée',
 };
 
 export function getStatusBadgeClassName(status: ShipmentStatus) {

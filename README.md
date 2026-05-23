@@ -1,11 +1,26 @@
-# Fake Parcel Tracking Generator
+# Générateur de suivi colis
 
-Full-stack MVP for generating fake parcel tracking numbers and fake tracking timelines with Vite, React, TypeScript, and Supabase.
+MVP full-stack pour générer des numéros de suivi colis et des timelines de suivi de démonstration avec Vite, React, TypeScript et Supabase.
 
 ## Install
 
 ```bash
-npm install
+pnpm install
+```
+
+## Prérequis pnpm
+
+Activez pnpm avec Corepack si nécessaire :
+
+```bash
+corepack enable
+corepack prepare pnpm@latest --activate
+```
+
+Ou installez pnpm globalement :
+
+```bash
+npm install -g pnpm
 ```
 
 ## Environment
@@ -35,7 +50,7 @@ VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 Then restart the Vite dev server:
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 ## Supabase SQL Setup
@@ -58,7 +73,7 @@ This MVP does not add authentication yet. For local PoC usage, make sure your Su
 ## Run Locally
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 Open the local Vite URL, usually:
@@ -72,6 +87,57 @@ Routes:
 - `/` redirects to `/generator`
 - `/generator` creates fake shipments and events
 - `/track/:trackingNumber` displays shipment details and timeline
+
+## AI Assistant Setup
+
+The tracking page includes a contextual assistant UI. The browser never receives an OpenAI key. AI calls go through the Supabase Edge Function at:
+
+```text
+supabase/functions/tracking-assistant/index.ts
+```
+
+The frontend continues to use only:
+
+```bash
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+Do not add `OPENAI_API_KEY` to any `VITE_` environment variable.
+
+Set the OpenAI key as a Supabase secret:
+
+```bash
+supabase secrets set OPENAI_API_KEY=your_openai_api_key
+```
+
+Optionally set a model override:
+
+```bash
+supabase secrets set OPENAI_MODEL=gpt-4o-mini
+```
+
+Run the function locally with the Supabase CLI:
+
+```bash
+supabase functions serve tracking-assistant --env-file .env.local
+```
+
+For local Edge Function testing, `.env.local` may contain `OPENAI_API_KEY`, but it must stay server-side and must not use the `VITE_` prefix.
+
+Deploy the function:
+
+```bash
+supabase functions deploy tracking-assistant
+```
+
+The chat UI falls back to deterministic local responses when the Edge Function is unavailable or `OPENAI_API_KEY` is missing, so local UI development still works without AI configuration.
+
+Pour ajouter des composants shadcn/ui :
+
+```bash
+pnpm dlx shadcn@latest add button card badge input select separator progress alert dialog sheet tabs table
+```
 
 ## Fake Data Rules
 

@@ -17,7 +17,7 @@ export const orderedProducts: MockProduct[] = [
   },
   {
     id: 'essential-cap',
-    name: 'Casquette Essential',
+    name: 'Casquette essentielle',
     meta: 'Noir · Taille unique',
     price: '24,90 €',
     quantity: 1,
@@ -27,14 +27,14 @@ export const orderedProducts: MockProduct[] = [
 export const completeParcelProducts: MockProduct[] = [
   {
     id: 'sport-socks',
-    name: 'Chaussettes Sport',
+    name: 'Chaussettes de sport',
     meta: 'Blanc · Lot de 3',
     price: '12,90 €',
     rating: '4.8',
   },
   {
     id: 'sneaker-care',
-    name: 'Kit Entretien Sneakers',
+    name: 'Kit d’entretien sneakers',
     meta: 'Nettoyant + brosse',
     price: '19,90 €',
     rating: '4.9',
@@ -48,7 +48,7 @@ export const completeParcelProducts: MockProduct[] = [
   },
   {
     id: 'premium-laces',
-    name: 'Lacets Premium',
+    name: 'Lacets premium',
     meta: 'Ivoire · 120 cm',
     price: '7,90 €',
     rating: '4.6',
@@ -64,7 +64,7 @@ export const recommendedProducts: MockProduct[] = [
   },
   {
     id: 'comfort-hoodie',
-    name: 'Hoodie Comfort',
+    name: 'Hoodie confort',
     meta: 'Molleton premium · Violet',
     price: '69,90 €',
   },

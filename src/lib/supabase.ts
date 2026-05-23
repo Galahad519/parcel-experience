@@ -11,7 +11,7 @@ const hasPlaceholderSupabaseEnv =
 
 export const supabaseConfigError =
   hasMissingSupabaseEnv || hasPlaceholderSupabaseEnv
-    ? 'Supabase is not configured. Create .env.local at the project root with VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY, then restart npm run dev.'
+    ? 'Supabase n’est pas configuré. Créez un fichier .env.local à la racine avec VITE_SUPABASE_URL et VITE_SUPABASE_ANON_KEY, puis relancez pnpm dev.'
     : null;
 
 export const supabase = supabaseConfigError

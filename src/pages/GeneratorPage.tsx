@@ -28,7 +28,7 @@ export default function GeneratorPage() {
     setError(null);
 
     if (!supabase) {
-      setError(supabaseConfigError ?? 'Supabase is not available.');
+      setError(supabaseConfigError ?? 'Supabase n’est pas disponible.');
       setIsSubmitting(false);
       return;
     }
@@ -52,7 +52,7 @@ export default function GeneratorPage() {
         .single();
 
       if (shipmentError || !shipment) {
-        setError(shipmentError?.message ?? 'Unable to create shipment.');
+        setError(shipmentError?.message ?? 'Impossible de créer le colis.');
         setIsSubmitting(false);
         return;
       }
@@ -74,7 +74,7 @@ export default function GeneratorPage() {
 
       navigate(`/track/${trackingNumber}`);
     } catch {
-      setError('Unable to connect to Supabase. Check your environment variables and project settings.');
+      setError('Impossible de se connecter à Supabase. Vérifiez vos variables d’environnement et les paramètres du projet.');
       setIsSubmitting(false);
     }
   }

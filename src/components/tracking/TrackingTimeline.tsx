@@ -13,14 +13,14 @@ export default function TrackingTimeline({ events, formatDate }: TrackingTimelin
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Tracking events</CardTitle>
-        <CardDescription>Carrier scans generated for this shipment.</CardDescription>
+        <CardTitle>Événements de suivi</CardTitle>
+        <CardDescription>Scans transporteur générés pour ce colis.</CardDescription>
       </CardHeader>
       <CardContent>
         {events.length === 0 ? (
           <Alert>
-            <AlertTitle>No tracking events</AlertTitle>
-            <AlertDescription>No tracking events have been created for this shipment yet.</AlertDescription>
+            <AlertTitle>Aucun événement de suivi</AlertTitle>
+            <AlertDescription>Aucun événement de suivi n’a encore été créé pour ce colis.</AlertDescription>
           </Alert>
         ) : (
           <ol className="grid gap-0">
@@ -39,7 +39,7 @@ export default function TrackingTimeline({ events, formatDate }: TrackingTimelin
                     <StatusBadge className="shrink-0" status={event.status} />
                   </div>
                   <p className="mt-2 text-xs text-muted-foreground">
-                    {event.location || 'Unknown location'} · {formatDate(event.event_date)}
+                    {event.location || 'Localisation inconnue'} · {formatDate(event.event_date)}
                   </p>
                   {index < events.length - 1 ? <Separator className="mt-4" /> : null}
                 </div>

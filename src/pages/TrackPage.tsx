@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { MessageCircle } from 'lucide-react';
+import TrackingAssistant from '@/components/chat/TrackingAssistant';
 import AccountSidebar from '@/components/ecommerce/AccountSidebar';
 import CompleteParcelUpsell from '@/components/ecommerce/CompleteParcelUpsell';
 import EcommerceHeader from '@/components/ecommerce/EcommerceHeader';
@@ -38,13 +40,13 @@ export default function TrackPage() {
   useEffect(() => {
     async function fetchTrackingDetails() {
       if (!trackingNumber) {
-        setError('Missing tracking number.');
+        setError('Numéro de suivi manquant.');
         setIsLoading(false);
         return;
       }
 
       if (!supabase) {
-        setError(supabaseConfigError ?? 'Supabase is not available.');
+        setError(supabaseConfigError ?? 'Supabase n’est pas disponible.');
         setIsLoading(false);
         return;
       }
@@ -57,7 +59,7 @@ export default function TrackPage() {
           .single();
 
         if (shipmentError || !shipmentData) {
-          setError(shipmentError?.message ?? 'Shipment not found.');
+          setError(shipmentError?.message ?? 'Colis introuvable.');
           setIsLoading(false);
           return;
         }
@@ -79,7 +81,7 @@ export default function TrackPage() {
         setEvents((eventData ?? []) as TrackingEvent[]);
         setIsLoading(false);
       } catch {
-        setError('Unable to connect to Supabase. Check your environment variables and project settings.');
+        setError('Impossible de se connecter à Supabase. Vérifiez vos variables d’environnement et les paramètres du projet.');
         setIsLoading(false);
       }
     }
@@ -143,7 +145,24 @@ export default function TrackPage() {
           <ShipmentStatusCard shipment={shipment} />
           <section className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
             <TrackingDetails events={events} formatDate={formatDate} />
-            <MockMapCard shipment={shipment} />
+            <div className="grid gap-6">
+              <MockMapCard shipment={shipment} />
+              <Card className="rounded-2xl border-violet-100 bg-white shadow-sm">
+                <CardContent className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex items-start gap-3">
+                    <span className="grid size-10 shrink-0 place-items-center rounded-full bg-violet-100 text-violet-700">
+                      <MessageCircle className="size-5" />
+                    </span>
+                    <div>
+                      <h2 className="font-semibold text-slate-950">Besoin d’aide ?</h2>
+                      <p className="mt-1 text-sm text-slate-500">
+                        L’assistant peut expliquer le statut de votre colis et les options disponibles.
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </section>
           <OrderedProducts />
           <CompleteParcelUpsell />
@@ -151,6 +170,7 @@ export default function TrackPage() {
           <TrustStrip />
         </main>
       </div>
+      <TrackingAssistant events={events} shipment={shipment} />
     </div>
   );
 }

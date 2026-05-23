@@ -17,22 +17,22 @@ type ShipmentSummaryProps = {
 
 export default function ShipmentSummary({ shipment, formatDate }: ShipmentSummaryProps) {
   const summaryRows = [
-    { label: 'Carrier', value: shipment.carrier },
-    { label: 'Estimated delivery', value: formatDate(shipment.estimated_delivery) },
-    { label: 'Order number', value: shipment.order_number || 'Not provided' },
-    { label: 'Customer name', value: shipment.customer_name || 'Not provided' },
+    { label: 'Transporteur', value: shipment.carrier },
+    { label: 'Livraison estimée', value: formatDate(shipment.estimated_delivery) },
+    { label: 'Numéro de commande', value: shipment.order_number || 'Non renseigné' },
+    { label: 'Nom du client', value: shipment.customer_name || 'Non renseigné' },
   ];
 
   return (
     <Card>
       <CardHeader>
-        <CardDescription>Tracking number</CardDescription>
+        <CardDescription>Numéro de suivi</CardDescription>
         <CardTitle className="break-all font-mono text-xl">{shipment.tracking_number}</CardTitle>
       </CardHeader>
       <CardContent className="grid gap-5">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <StatusBadge status={shipment.status} />
-          <span className="text-sm text-muted-foreground">{getStatusProgress(shipment.status)}% complete</span>
+          <span className="text-sm text-muted-foreground">{getStatusProgress(shipment.status)} % terminé</span>
         </div>
 
         <Progress value={getStatusProgress(shipment.status)} />
@@ -53,7 +53,7 @@ export default function ShipmentSummary({ shipment, formatDate }: ShipmentSummar
         </Alert>
 
         <Button className="w-fit" render={<Link to="/generator" />}>
-          Generate another shipment
+          Générer un autre colis
         </Button>
       </CardContent>
     </Card>

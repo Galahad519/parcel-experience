@@ -9,11 +9,11 @@ const carrierPrefixes: Record<Carrier, string> = {
 };
 
 const locationsByCarrier: Record<Carrier, string[]> = {
-  Colissimo: ['Paris Hub', 'Orleans Sorting Center', 'Lyon Depot'],
-  Chronopost: ['Roissy Hub', 'Tours Agency', 'Marseille Depot'],
-  'Mondial Relay': ['Lille Hub', 'Nantes Relay Center', 'Bordeaux Locker'],
-  DHL: ['Leipzig Hub', 'Paris Gateway', 'Nice Service Point'],
-  UPS: ['Koeln Hub', 'Chilly-Mazarin Facility', 'Toulouse Depot'],
+  Colissimo: ['Hub de Paris', 'Centre de tri d’Orléans', 'Dépôt de Lyon'],
+  Chronopost: ['Hub de Roissy', 'Agence de Tours', 'Dépôt de Marseille'],
+  'Mondial Relay': ['Hub de Lille', 'Centre relais de Nantes', 'Consigne de Bordeaux'],
+  DHL: ['Hub de Leipzig', 'Plateforme de Paris', 'Point service de Nice'],
+  UPS: ['Hub de Cologne', 'Site de Chilly-Mazarin', 'Dépôt de Toulouse'],
 };
 
 const scenarioEvents: Record<
@@ -21,42 +21,42 @@ const scenarioEvents: Record<
   Array<Pick<NewTrackingEvent, 'title' | 'description' | 'status'>>
 > = {
   normal: [
-    { title: 'Order confirmed', description: 'The shipment has been created.', status: 'confirmed' },
-    { title: 'Parcel prepared', description: 'The parcel is packed and ready for pickup.', status: 'prepared' },
-    { title: 'Parcel handed to carrier', description: 'The carrier has received the parcel.', status: 'in_transit' },
-    { title: 'Arrived at sorting center', description: 'The parcel has reached a regional sorting facility.', status: 'in_transit' },
-    { title: 'Departed sorting center', description: 'The parcel left the facility for the destination depot.', status: 'in_transit' },
-    { title: 'Out for delivery', description: 'The parcel is on its way to the recipient.', status: 'out_for_delivery' },
+    { title: 'Commande confirmée', description: 'Votre commande a bien été confirmée.', status: 'confirmed' },
+    { title: 'Colis en préparation', description: 'Nous préparons actuellement votre colis.', status: 'prepared' },
+    { title: 'Colis remis au transporteur', description: 'Le transporteur a pris en charge votre colis.', status: 'in_transit' },
+    { title: 'Arrivé au centre de tri', description: 'Votre colis est arrivé dans un centre de tri régional.', status: 'in_transit' },
+    { title: 'Départ du centre de tri', description: 'Votre colis a quitté le centre de tri vers le dépôt de destination.', status: 'in_transit' },
+    { title: 'En cours de livraison', description: 'Votre colis est en route vers son destinataire.', status: 'out_for_delivery' },
   ],
   delayed: [
-    { title: 'Order confirmed', description: 'The shipment has been created.', status: 'confirmed' },
-    { title: 'Parcel prepared', description: 'The parcel is packed and ready for pickup.', status: 'prepared' },
-    { title: 'In transit', description: 'The parcel is moving through the carrier network.', status: 'in_transit' },
-    { title: 'Arrived at sorting center', description: 'The parcel is waiting for the next carrier scan.', status: 'in_transit' },
-    { title: 'Delay detected', description: 'Carrier processing is taking longer than expected at the sorting center.', status: 'delayed' },
-    { title: 'New delivery estimate', description: 'A revised delivery date has been calculated.', status: 'delayed' },
+    { title: 'Commande confirmée', description: 'Votre commande a bien été confirmée.', status: 'confirmed' },
+    { title: 'Colis en préparation', description: 'Nous préparons actuellement votre colis.', status: 'prepared' },
+    { title: 'En transit', description: 'Votre colis est en cours d’acheminement dans le réseau du transporteur.', status: 'in_transit' },
+    { title: 'Arrivé au centre de tri', description: 'Votre colis attend le prochain scan du transporteur.', status: 'in_transit' },
+    { title: 'Retard détecté', description: 'Le traitement du colis prend plus de temps que prévu au centre de tri.', status: 'delayed' },
+    { title: 'Nouvelle estimation de livraison', description: 'Une date de livraison ajustée a été calculée.', status: 'delayed' },
   ],
   blocked: [
-    { title: 'Order confirmed', description: 'The shipment has been created.', status: 'confirmed' },
-    { title: 'Parcel handed to carrier', description: 'The carrier has received the parcel.', status: 'in_transit' },
-    { title: 'Arrived at hub', description: 'The parcel was scanned at a carrier hub.', status: 'in_transit' },
-    { title: 'No movement detected for 48h', description: 'The parcel has not received a recent scan and may need investigation.', status: 'blocked' },
+    { title: 'Commande confirmée', description: 'Votre commande a bien été confirmée.', status: 'confirmed' },
+    { title: 'Colis remis au transporteur', description: 'Le transporteur a pris en charge votre colis.', status: 'in_transit' },
+    { title: 'Arrivé au hub', description: 'Votre colis a été scanné sur une plateforme transporteur.', status: 'in_transit' },
+    { title: 'Aucun mouvement détecté depuis 48 h', description: 'Votre colis n’a pas reçu de scan récent et peut nécessiter une vérification.', status: 'blocked' },
   ],
   delivered: [
-    { title: 'Order confirmed', description: 'The shipment has been created.', status: 'confirmed' },
-    { title: 'Parcel prepared', description: 'The parcel is packed and ready for pickup.', status: 'prepared' },
-    { title: 'In transit', description: 'The parcel is moving through the carrier network.', status: 'in_transit' },
-    { title: 'Arrived at destination depot', description: 'The parcel reached the final delivery depot.', status: 'in_transit' },
-    { title: 'Out for delivery', description: 'The parcel is on its way to the recipient.', status: 'out_for_delivery' },
-    { title: 'Delivered', description: 'The parcel was delivered successfully.', status: 'delivered' },
+    { title: 'Commande confirmée', description: 'Votre commande a bien été confirmée.', status: 'confirmed' },
+    { title: 'Colis en préparation', description: 'Nous préparons actuellement votre colis.', status: 'prepared' },
+    { title: 'En transit', description: 'Votre colis est en cours d’acheminement dans le réseau du transporteur.', status: 'in_transit' },
+    { title: 'Arrivé au dépôt de destination', description: 'Votre colis est arrivé dans le dépôt final de livraison.', status: 'in_transit' },
+    { title: 'En cours de livraison', description: 'Votre colis est en route vers son destinataire.', status: 'out_for_delivery' },
+    { title: 'Livré', description: 'Votre colis a bien été livré.', status: 'delivered' },
   ],
   failed: [
-    { title: 'Order confirmed', description: 'The shipment has been created.', status: 'confirmed' },
-    { title: 'Parcel prepared', description: 'The parcel is packed and ready for pickup.', status: 'prepared' },
-    { title: 'Arrived at destination depot', description: 'The parcel reached the final delivery depot.', status: 'in_transit' },
-    { title: 'Out for delivery', description: 'The parcel is on its way to the recipient.', status: 'out_for_delivery' },
-    { title: 'Delivery attempt failed', description: 'The carrier could not complete delivery.', status: 'failed' },
-    { title: 'Action required', description: 'The recipient should contact the carrier or update delivery details.', status: 'failed' },
+    { title: 'Commande confirmée', description: 'Votre commande a bien été confirmée.', status: 'confirmed' },
+    { title: 'Colis en préparation', description: 'Nous préparons actuellement votre colis.', status: 'prepared' },
+    { title: 'Arrivé au dépôt de destination', description: 'Votre colis est arrivé dans le dépôt final de livraison.', status: 'in_transit' },
+    { title: 'En cours de livraison', description: 'Votre colis est en route vers son destinataire.', status: 'out_for_delivery' },
+    { title: 'Tentative de livraison échouée', description: 'Le transporteur n’a pas pu finaliser la livraison.', status: 'failed' },
+    { title: 'Action requise', description: 'Le destinataire doit contacter le transporteur ou mettre à jour les informations de livraison.', status: 'failed' },
   ],
 };
 
@@ -97,26 +97,26 @@ export function getShipmentStatusFromScenario(scenario: Scenario): ShipmentStatu
 
 export function getHumanReadableMessage(status: ShipmentStatus, scenario: Scenario) {
   if (status === 'delivered') {
-    return 'This parcel has been delivered successfully.';
+    return 'Ce colis a bien été livré.';
   }
 
   if (status === 'failed') {
-    return 'Delivery could not be completed. The recipient may need to take action.';
+    return 'La livraison n’a pas pu être finalisée. Une action du destinataire peut être nécessaire.';
   }
 
   if (scenario === 'blocked') {
-    return 'This parcel appears blocked because no recent carrier movement was detected.';
+    return 'Ce colis semble bloqué car aucun mouvement récent du transporteur n’a été détecté.';
   }
 
   if (scenario === 'delayed') {
-    return 'This parcel is delayed, and the estimated delivery date has been adjusted.';
+    return 'Ce colis est retardé et la date de livraison estimée a été ajustée.';
   }
 
   if (status === 'out_for_delivery') {
-    return 'This parcel is currently out for delivery.';
+    return 'Ce colis est actuellement en cours de livraison.';
   }
 
-  return 'This parcel is moving through the carrier network.';
+  return 'Ce colis est en cours d’acheminement dans le réseau du transporteur.';
 }
 
 export function getEstimatedDeliveryDate(scenario: Scenario) {

@@ -46,13 +46,13 @@ export default function ShipmentGeneratorForm({
   return (
     <Card className="mx-auto max-w-2xl">
       <CardHeader>
-        <CardTitle>Create a fake shipment</CardTitle>
-        <CardDescription>Generate a test tracking number and carrier timeline in Supabase.</CardDescription>
+        <CardTitle>Créer un colis de démonstration</CardTitle>
+        <CardDescription>Générez un numéro de suivi de test et une timeline transporteur dans Supabase.</CardDescription>
       </CardHeader>
       <CardContent>
         <form className="grid gap-5" onSubmit={onSubmit}>
           <div className="grid gap-2">
-            <Label htmlFor="carrier">Carrier</Label>
+            <Label htmlFor="carrier">Transporteur</Label>
             <Select value={carrier} onValueChange={(value) => onCarrierChange(value as Carrier)}>
               <SelectTrigger className="w-full" id="carrier">
                 <SelectValue />
@@ -68,7 +68,7 @@ export default function ShipmentGeneratorForm({
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="scenario">Scenario</Label>
+            <Label htmlFor="scenario">Scénario</Label>
             <Select value={scenario} onValueChange={(value) => onScenarioChange(value as Scenario)}>
               <SelectTrigger className="w-full" id="scenario">
                 <SelectValue />
@@ -84,7 +84,7 @@ export default function ShipmentGeneratorForm({
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="customerName">Customer name</Label>
+            <Label htmlFor="customerName">Nom du client</Label>
             <Input
               id="customerName"
               onChange={(event) => onCustomerNameChange(event.target.value)}
@@ -95,7 +95,7 @@ export default function ShipmentGeneratorForm({
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="orderNumber">Order number</Label>
+            <Label htmlFor="orderNumber">Numéro de commande</Label>
             <Input
               id="orderNumber"
               onChange={(event) => onOrderNumberChange(event.target.value)}
@@ -107,14 +107,14 @@ export default function ShipmentGeneratorForm({
 
           {error ? (
             <Alert variant="destructive">
-              <AlertTitle>Unable to generate shipment</AlertTitle>
+              <AlertTitle>Impossible de générer le colis</AlertTitle>
               <AlertDescription>{error}</AlertDescription>
             </Alert>
           ) : null}
 
           {setupError ? (
             <Alert className="border-amber-200 bg-amber-50 text-amber-900 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-100">
-              <AlertTitle>Supabase setup needed</AlertTitle>
+              <AlertTitle>Configuration Supabase requise</AlertTitle>
               <AlertDescription className="text-amber-800 dark:text-amber-200">{setupError}</AlertDescription>
             </Alert>
           ) : null}
@@ -127,7 +127,7 @@ export default function ShipmentGeneratorForm({
           ) : null}
 
           <Button className="w-fit" disabled={isSubmitting} type="submit">
-            {isSubmitting ? 'Generating...' : 'Generate shipment'}
+            {isSubmitting ? 'Génération en cours…' : 'Générer un colis'}
           </Button>
         </form>
       </CardContent>
