@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import App from './App';
 import GeneratorPage from './pages/GeneratorPage';
+import LandingPage from './pages/LandingPage';
 import TrackPage from './pages/TrackPage';
 import './styles.css';
 
@@ -11,10 +12,11 @@ createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
       <Routes>
         <Route element={<App />}>
-          <Route path="/" element={<Navigate to="/generator" replace />} />
+          <Route path="/" element={<Navigate to="/landing" replace />} />
+          <Route path="/landing" element={<LandingPage />} />
           <Route path="/generator" element={<GeneratorPage />} />
           <Route path="/track/:trackingNumber" element={<TrackPage />} />
-          <Route path="*" element={<Navigate to="/generator" replace />} />
+          <Route path="*" element={<Navigate to="/landing" replace />} />
         </Route>
       </Routes>
     </BrowserRouter>

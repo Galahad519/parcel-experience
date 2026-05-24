@@ -5,7 +5,7 @@ import { Separator } from '@/components/ui/separator';
 export default function AppShell() {
   const location = useLocation();
 
-  if (location.pathname.startsWith('/track/')) {
+  if (location.pathname === '/landing' || location.pathname.startsWith('/track/')) {
     return <Outlet />;
   }
 
